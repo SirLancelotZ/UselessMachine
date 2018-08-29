@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -28,6 +29,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void setListeners(){
         // TODO self destruct button
+        buttonSelfDestruct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSelfDestructSequence();
+            }
+        });
+
 
         switchUseless.setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener(){
@@ -46,11 +54,40 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    private void startSelfDestructSequence(){
+        //disable the button
+
+
+
+        buttonSelfDestruct.setEnabled(false);
+        //start a 10 second countdown timer that updates
+        //the display every second
+        new CountDownTimer(10000, 1000) {
+            @Override
+            public void onTick(long millisUntilFInished){
+                buttonSelfDestruct.setText("Destruct in " + millisUntilFInished/1000);
+                    if(lastTime - millisUntilFInished > duration){
+                        if(!red){
+
+                        }
+                    }
+            }
+        };
+        // Want the button to show the countdown
+        // Destruct in 10...
+        // Destruct in 9...
+
+        // At the end, we're going to close the activity
+        // call the finish() method
+        finish();
+    }
+
+
     private void startSwitchOffTimer(){
-        new CountDownTimer(5000, 5000) {
+        new CountDownTimer(5000, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
-                if(!switchUseless.ischecked()){
+                if(!switchUseless.isChecked()){
                     //Log.d(TAG, "onTick:cancelling");
                     cancel();
                 }
